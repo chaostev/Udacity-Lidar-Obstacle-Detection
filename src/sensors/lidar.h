@@ -82,8 +82,8 @@ struct Lidar
 	double resoultion;
 	double sderr;
 
-	Lidar(std::vector<Car> setCars, double setGroundSlope, Vect3 setPosition = Vect3(0,0,2.6))
-		: cloud(new pcl::PointCloud<pcl::PointXYZ>()), position(setPosition)
+	Lidar(std::vector<Car> setCars, double setGroundSlope)
+		: cloud(new pcl::PointCloud<pcl::PointXYZ>()), position(Vect3(0,0,2.6))
 	{
 		// TODO:: set minDistance to 5 to remove points from roof of ego car
 		minDistance = 5;
