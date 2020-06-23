@@ -71,21 +71,18 @@ template<typename PointT>
 std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::SeparateClouds(
     pcl::PointIndices::Ptr inliers, typename pcl::PointCloud<PointT>::Ptr cloud) 
 {
-    // Create two new point clouds, one cloud with obstacles and other with segmented plane
     typename pcl::PointCloud<PointT>::Ptr plane( new pcl::PointCloud<PointT> );
     typename pcl::PointCloud<PointT>::Ptr obstacles( new pcl::PointCloud<PointT> );
-
-    for (int index : inliers->indices)
-        plane->points.push_back(cloud->points[index]);
 
     pcl::ExtractIndices<PointT> extract;
     extract.setInputCloud(cloud);
     extract.setIndices(inliers);
+    extract.setNegative(false);
+    extract.filter(*plane);
     extract.setNegative(true);
     extract.filter(*obstacles);
 
-    std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT>::Ptr> segResult(obstacles, plane);
-    return segResult;
+    return std::make_pair(obstacles, plane);
 }
 
 

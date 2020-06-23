@@ -13,7 +13,7 @@ struct Node
 	Node* right;
 
 	Node(std::vector<float> arr, int setId)
-	:	point(arr), id(setId), left(NULL), right(NULL)
+	:	point(arr), id(setId), left(nullptr), right(nullptr)
 	{}
 };
 
@@ -21,12 +21,10 @@ struct KdTree
 {
 	Node* root;
 
-	KdTree()
-	: root(NULL)
-	{}
+	KdTree() : root(nullptr) {}
 
 	void insert(Node** currNode, int depth, std::vector<float> point, int id) {
-		if (*currNode == NULL) {
+		if (*currNode == nullptr) {
 			*currNode = new Node(point, id);
 		}
 		else {
@@ -46,7 +44,7 @@ struct KdTree
 	}
 
 	void search(std::vector<float> target, float distanceTol, Node* node, int depth, std::vector<int>& ids) {
-		if (node != NULL) {
+		if (node) {
 			if ((node->point[0] - target[0] <= distanceTol) && (target[0] - node->point[0] <= distanceTol)
 				&& (node->point[1] - target[1] <= distanceTol) && (target[1] - node->point[1] <= distanceTol)) {
 				if (EuclideanDistance(node->point, target) <= distanceTol) {

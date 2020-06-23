@@ -41,14 +41,13 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr CreateData(std::vector<std::vector<float>> p
   	cloud->height = 1;
 
   	return cloud;
-
 }
 
 
 void render2DTree(Node* node, pcl::visualization::PCLVisualizer::Ptr& viewer, Box window, int& iteration, uint depth=0)
 {
 
-	if(node!=NULL)
+	if(node)
 	{
 		Box upperWindow = window;
 		Box lowerWindow = window;
@@ -70,10 +69,7 @@ void render2DTree(Node* node, pcl::visualization::PCLVisualizer::Ptr& viewer, Bo
 
 		render2DTree(node->left,viewer, lowerWindow, iteration, depth+1);
 		render2DTree(node->right,viewer, upperWindow, iteration, depth+1);
-
-
 	}
-
 }
 
 void proximity(const std::vector<std::vector<float>>& points, int point, KdTree* tree, 
@@ -157,12 +153,12 @@ int main ()
   		renderPointCloud(viewer, clusterCloud,"cluster"+std::to_string(clusterId),colors[clusterId%3]);
   		++clusterId;
   	}
-  	if(clusters.size()==0)
-  		renderPointCloud(viewer,cloud,"data");
+  	if(clusters.size() == 0)
+  		renderPointCloud(viewer, cloud, "data");
 	
-  	while (!viewer->wasStopped ())
+  	while (!viewer->wasStopped())
   	{
-  	  viewer->spinOnce ();
+  		viewer->spinOnce();
   	}
   	
 }
