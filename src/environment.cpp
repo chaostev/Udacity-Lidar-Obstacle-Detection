@@ -43,11 +43,11 @@ void cityBlock(pcl::visualization::PCLVisualizer::Ptr& viewer, ProcessPointCloud
     
     // Filter point cloud data using voxels and region cropping
     pcl::PointCloud<pcl::PointXYZI>::Ptr filteredCloud = processorI->FilterCloud(
-        inputCloud, 0.1f, Eigen::Vector4f(-15, -5, -3, 1), Eigen::Vector4f(80, 7, 5, 1));
+        inputCloud, 0.3f, Eigen::Vector4f(-15, -5, -3, 1), Eigen::Vector4f(30, 7, 5, 1));
     // renderPointCloud(viewer, filteredCloud, "filteredCloud");
 
     // Segment out Ground Plane
-    auto segmentCloud = processorI->SegmentPlane(filteredCloud, 100, 0.2);
+    auto segmentCloud = processorI->SegmentPlane(filteredCloud, 20, 0.2);  // Using pcl methods, use 100, 0.2
     // renderPointCloud(viewer, segmentCloud.first, "obstacle_cloud", Color(1, 0, 0));
     renderPointCloud(viewer, segmentCloud.second, "plane_cloud", Color(0, 1, 0));
 

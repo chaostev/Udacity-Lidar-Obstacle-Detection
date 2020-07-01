@@ -90,9 +90,8 @@ void proximity(const std::vector<std::vector<float>>& points, int point, KdTree*
 std::vector<std::vector<int>> euclideanCluster(const std::vector<std::vector<float>>& points,
 											   KdTree* tree, float distanceTol);
 
-
-// 3D RANSAC Algorithm - used to segment out ground plane
-std::unordered_set<int> RansacPlane(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud,
-									int maxIterations, float distanceTol);
+// RANSAC Plane Segmentation Algorithm
+//  - moved to processPointClouds.h, because it uses the template <typename PointT>
+//    like those methods, and processPointClouds.cpp is linked to environment differently
 
 #endif
