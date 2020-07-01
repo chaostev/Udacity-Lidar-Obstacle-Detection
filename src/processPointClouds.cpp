@@ -136,6 +136,7 @@ std::vector<typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::C
     auto startTime = std::chrono::steady_clock::now();
     std::vector<typename pcl::PointCloud<PointT>::Ptr> clusters;
 
+    /*
     // My 3D KDTree Method
     // Note: not a great solution, since it will use O(n) addtional memory,
     //  but faster than adapting all the function signatures
@@ -166,8 +167,8 @@ std::vector<typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::C
 
         clusters.emplace_back(cloudCluster);
     }
+    */
 
-    /* 
     // PCL Method
     typename pcl::search::KdTree<PointT>::Ptr tree( new pcl::search::KdTree<PointT> );
     tree->setInputCloud(cloud);
@@ -193,7 +194,7 @@ std::vector<typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::C
 
         clusters.emplace_back(cloudCluster);
     }
-    */
+
 
     auto endTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
