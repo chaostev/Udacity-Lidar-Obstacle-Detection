@@ -3,20 +3,22 @@
 #ifndef PROCESSPOINTCLOUDS_H_
 #define PROCESSPOINTCLOUDS_H_
 
-#include <pcl/io/pcd_io.h>
+#include <chrono>
+#include <ctime>
+#include <iostream>
+#include <string>
+#include <unordered_set>
+#include <vector>
+
 #include <pcl/common/common.h>
+#include <pcl/common/transforms.h>
+#include <pcl/filters/crop_box.h>
 #include <pcl/filters/extract_indices.h>
 #include <pcl/filters/voxel_grid.h>
-#include <pcl/filters/crop_box.h>
+#include <pcl/io/pcd_io.h>
 #include <pcl/kdtree/kdtree.h>
-#include <pcl/segmentation/sac_segmentation.h>
 #include <pcl/segmentation/extract_clusters.h>
-#include <pcl/common/transforms.h>
-#include <iostream> 
-#include <string>  
-#include <vector>
-#include <ctime>
-#include <chrono>
+#include <pcl/segmentation/sac_segmentation.h>
 
 #include "algorithms.h"
 #include "render/box.h"
@@ -46,5 +48,9 @@ public:
     typename pcl::PointCloud<PointT>::Ptr loadPcd(std::string file);
     std::vector<boost::filesystem::path> streamPcd(std::string dataPath);
 
+    // 3D RANSAC Algorithm - used to segment out ground plane
+    std::unordered_set<int> RansacPlane(typename pcl::PointCloud<PointT>::Ptr cloud,
+									    int maxIterations, float distanceTol);
 };
+
 #endif /* PROCESSPOINTCLOUDS_H_ */
