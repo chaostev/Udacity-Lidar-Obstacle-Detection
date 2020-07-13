@@ -43,7 +43,7 @@ void cityBlock(pcl::visualization::PCLVisualizer::Ptr& viewer, ProcessPointCloud
     
     // Filter point cloud data using voxels and region cropping
     pcl::PointCloud<pcl::PointXYZI>::Ptr filteredCloud = processorI->FilterCloud(
-        inputCloud, 0.3f, Eigen::Vector4f(-15, -5, -3, 1), Eigen::Vector4f(30, 7, 5, 1));
+        inputCloud, 0.2f, Eigen::Vector4f(-15, -5, -3, 1), Eigen::Vector4f(30, 7, 2, 1));
     // renderPointCloud(viewer, filteredCloud, "filteredCloud");
 
     // Segment out Ground Plane
@@ -52,7 +52,7 @@ void cityBlock(pcl::visualization::PCLVisualizer::Ptr& viewer, ProcessPointCloud
     renderPointCloud(viewer, segmentCloud.second, "plane_cloud", Color(0, 1, 0));
 
     // Cluster Obstacles
-    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> cloudClusters = processorI->Clustering(segmentCloud.first, 0.5, 10, 100000);
+    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> cloudClusters = processorI->Clustering(segmentCloud.first, 0.35, 10, 100000);
     int clusterId = 0;
     std::vector<Color> colors = {Color(1,0,0), Color(1,1,0), Color(0,0,1)};
     
@@ -148,7 +148,7 @@ int main (int argc, char** argv)
     // simpleHighway(viewer);
 
     ProcessPointClouds<pcl::PointXYZI>* processorI = new ProcessPointClouds<pcl::PointXYZI>();
-    std::vector<boost::filesystem::path> stream = processorI->streamPcd("../src/src/sensors/data/pcd/data_1");
+    std::vector<boost::filesystem::path> stream = processorI->streamPcd("../src/sensors/data/pcd/data_1");  // ../src/src/sensors/...
     auto streamIterator = stream.begin();
     pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloudI;
 
